@@ -15,8 +15,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -27,16 +26,15 @@ SECRET_KEY = 'ddw5z(k$d&#f##hnypm+5#(*k4^ef7s+&*bly1s7(%+k1%ml_u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
-MEDIA_URL="/media/"
-MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-STATIC_URL="/static/"
-STATIC_ROOT=os.path.join(BASE_DIR,"static")
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,7 +62,7 @@ ROOT_URLCONF = 'Attendance_System.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['Attendance_System_App/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Attendance_System.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -88,9 +85,8 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
 
-        #Mysql database setup
+        # Mysql database setup
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'attendance_system',
         'NAME': 'attendance_system',
         'USER': 'attendance_system',
         'PASSWORD': 'attendance_system_password',
@@ -98,7 +94,6 @@ DATABASES = {
         'PORT': '3306'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -118,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -132,10 +126,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-AUTH_USER_MODEL="Attendance_System_App.CustomUser"
-AUTHENTICATION_BACKENDS=['Attendance_System_App.EmailBackEnd.EmailBackEnd']
+AUTH_USER_MODEL = "Attendance_System_App.CustomUser"
+AUTHENTICATION_BACKENDS = ['Attendance_System_App.EmailBackEnd.EmailBackEnd']

@@ -7,31 +7,32 @@ class LoginCheckMiddleWare(MiddlewareMixin):
 
     def process_view(self,request,view_func,view_args,view_kwargs):
         modulename=view_func.__module__
+        print(modulename)
         user=request.user
         if user.is_authenticated:
             if user.user_type == "1":
                 if modulename == "Attendance_System_App.AdminViews":
                     pass
-                elif modulename == "Attendance_System_App.views":
+                elif modulename == "Attendance_System_App.views" or modulename == "django.views.static":
                     pass
                 else:
                     return HttpResponseRedirect(reverse("admin_home"))
             elif user.user_type == "2":
-                if modulename == "Attendance_System_App.TeacherViews":
+                if modulename == "Attendance_System_App.TeacherViews" or modulename == "django.views.static":
                     pass
                 elif modulename == "Attendance_System_App.views":
                     pass
                 else:
                     return HttpResponseRedirect(reverse("teacher_home"))
             elif user.user_type == "3":
-                if modulename == "Attendance_System_App.StudentServiceStaffViews":
+                if modulename == "Attendance_System_App.StudentServiceStaffViews" or modulename == "django.views.static":
                     pass
                 elif modulename == "Attendance_System_App.views":
                     pass
                 else:
                     return HttpResponseRedirect(reverse("studentservicestaff_home"))
             elif user.user_type == "4":
-                if modulename == "Attendance_System_App.StudentViews":
+                if modulename == "Attendance_System_App.StudentViews" or modulename == "django.views.static":
                     pass
                 elif modulename == "Attendance_System_App.views":
                     pass

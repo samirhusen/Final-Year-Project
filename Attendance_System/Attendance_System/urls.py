@@ -51,9 +51,36 @@ urlpatterns = [
     path('edit_subject_save',AdminViews.edit_subject_save, name="edit_subject_save"),
     path('edit_course/<str:course_id>',AdminViews.edit_course, name="edit_course"),
     path('edit_course_save',AdminViews.edit_course_save, name="edit_course_save"),
+    path('manage_session', AdminViews.manage_session, name="manage_session"),
+    path('add_session_save', AdminViews.add_session_save,name="add_session_save"),
+
+    # path('check_email_exist', AdminViews.check_email_exist,name="check_email_exist"),
+    # path('check_username_exist', AdminViews.check_username_exist,name="check_username_exist"),
+    # path('student_feedback_message', AdminViews.student_feedback_message,name="student_feedback_message"),
+    # path('student_feedback_message_replied', AdminViews.student_feedback_message_replied,name="student_feedback_message_replied"),
+    # path('staff_feedback_message', AdminViews.staff_feedback_message,name="staff_feedback_message"),
+    # path('staff_feedback_message_replied', AdminViews.staff_feedback_message_replied,name="staff_feedback_message_replied"),
+    # path('student_leave_view', AdminViews.student_leave_view,name="student_leave_view"),
+    # path('staff_leave_view', AdminViews.staff_leave_view,name="staff_leave_view"),
+    # path('student_approve_leave/<str:leave_id>', AdminViews.student_approve_leave,name="student_approve_leave"),
+    # path('student_disapprove_leave/<str:leave_id>', AdminViews.student_disapprove_leave,name="student_disapprove_leave"),
+    # path('staff_disapprove_leave/<str:leave_id>', AdminViews.staff_disapprove_leave,name="staff_disapprove_leave"),
+    # path('staff_approve_leave/<str:leave_id>', AdminViews.staff_approve_leave,name="staff_approve_leave"),
+    # path('admin_view_attendance', AdminViews.admin_view_attendance,name="admin_view_attendance"),
+    # path('admin_get_attendance_dates', AdminViews.admin_get_attendance_dates,name="admin_get_attendance_dates"),
+    # path('admin_get_attendance_student', AdminViews.admin_get_attendance_student,name="admin_get_attendance_student"),
+    # path('admin_profile', AdminViews.admin_profile,name="admin_profile"),
+    # path('admin_profile_save', AdminViews.admin_profile_save,name="admin_profile_save"),
+    # path('admin_send_notification_staff', AdminViews.admin_send_notification_staff,name="admin_send_notification_staff"),
+    # path('admin_send_notification_student', AdminViews.admin_send_notification_student,name="admin_send_notification_student"),
+    # path('send_student_notification', AdminViews.send_student_notification,name="send_student_notification"),
+    # path('send_staff_notification', AdminViews.send_staff_notification,name="send_staff_notification"),
+
 
 # Teacher URL Path
     path('teacher_home',TeacherViews.teacher_home,name="teacher_home"),
+    path('teacher_take_attendance', TeacherViews.teacher_take_attendance, name="teacher_take_attendance"),
+
 
 # Student URL Path
     path('student_home',StudentViews.student_home,name="student_home"),
