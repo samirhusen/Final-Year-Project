@@ -1,6 +1,6 @@
 {% extends 'teacher_template/base_template.html' %}
 {% block page_title %}
-Attendance
+View Update Attendance
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -11,7 +11,7 @@ Attendance
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Take Attendance of Students using Face Recognition System</h3>
+                <h3 class="card-title">View Update Attendance</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -25,8 +25,8 @@ Attendance
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Session Year</label>
-                    <select class="form-control" name="session_year" id="session_year">
+                    <label>Session Year </label>
+                    <select class="form-control" name="session_year_id" id="session_year_id">
                         {% for session_year in session_years %}
                           <option value="{{ session_year.id }}">{{ session_year.session_start_year }} TO {{ session_year.session_end_year }}</option>
                         {% endfor %}
@@ -47,7 +47,7 @@ Attendance
                 </div>
                 <!-- /.card-body -->
               <div class="card-footer">
-                  <button type="button" class="btn btn-primary btn-block" id="fetch_student">Start Recognizer</button>
+                  <button type="button" class="btn btn-primary btn-block" id="fetch_student">Get Attendance Data</button>
               </div>
 <!--                <div id="student_data" class="card-footer">-->
 

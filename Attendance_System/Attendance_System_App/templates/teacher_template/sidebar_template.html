@@ -52,7 +52,7 @@
           </li>
           <li class="nav-item">
             {% url 'teacher_apply_leave' as teacher_apply_leave %}
-            <a href="{{ teacher_apply_leave }}" class="nav-link {% if request.path == teacher_apply_leave %} active {% endif %}">
+            <a href="{{ teacher_apply_leave }}" class="nav-link {% if request.path == teacher_apply_leave %} active {% endif %} ">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Apply Leave
