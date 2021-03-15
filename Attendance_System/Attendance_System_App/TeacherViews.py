@@ -4,6 +4,8 @@ from django.shortcuts import render
 from Attendance_System_App.models import Subjects, SessionYearModel
 from Attendance_System_App.models import Teachers, LeaveReportTeachers, FeedBackTeachers
 from django.urls import reverse
+# from Attendance import findEncodings, markAttendance
+
 
 
 def teacher_home(request):
@@ -11,11 +13,16 @@ def teacher_home(request):
 
 
 def teacher_take_attendance(request):
+    
+    # findEncoding = findEncodings()
+    # markAttendances = markAttendance()
     subjects = Subjects.objects.filter(teacher_id=request.user.id)
     session_years = SessionYearModel.object.all()
+
     return render(request, "teacher_template/teacher_take_attendance.html",
                   {"subjects": subjects, "session_years": session_years})
 
+#, findEncoding: "findEncoding", markAttendances: "markAttendances"
 
 def teacher_update_attendance(request):
     subjects = Subjects.objects.filter(teacher_id=request.user.id)
