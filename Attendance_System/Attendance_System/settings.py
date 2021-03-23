@@ -136,9 +136,11 @@ AUTHENTICATION_BACKENDS = ['Attendance_System_App.EmailBackEnd.EmailBackEnd']
 # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_mails")
 
+
+# for password email reset:
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = "587"
 EMAIL_HOST_USER = "samirhussain.sameer@gmail.com"
 EMAIL_HOST_PASSWORD = "sameersameer"
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "Student management System <samirhussain.sameer@gmail.com>"
+DEFAULT_FROM_EMAIL = "Attendance System <samirhussain.sameer@gmail.com>"

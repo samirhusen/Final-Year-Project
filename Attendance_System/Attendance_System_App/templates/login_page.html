@@ -9,6 +9,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="stylesheet" href="{% static "mycss/style.css" %}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css" %}">
   <!-- Ionicons -->
@@ -20,77 +21,68 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
-
-<!--<div style="background-image: url('static/Herald_logo.jpg');-->
-<!--  background-repeat: no-repeat;-->
-<!--  background-attachment: fixed;-->
-<!--  background-size: 100% 100%; ">-->
-
-<div class="">
-<!--  login-box-->
-  <div class="login-logo">
-    <a href=""><b>Attendance</b> System</a>
-      <p></p>
-      <p></p>
-      <p></p>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Welcome to Attendance System !!!</p>
-
-      <form action="/doLogin" method="post">
-          {% csrf_token %}
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Log In</button>
-          </div><!-- /.col -->
-          <div class="col-12 text-center">
-            <p></p>
-            <a> Click on the button below if you forgot your password </a>
-            <p></p>
-          </div>
-          <div class="col-12 text-center">
-             <a class="btn btn-primary btn-block" href="{% url 'password_reset' %}">Reset Password</a>
-          </div><!-- /.col -->
-        </div>
-        <div class="row">
-          {% if messages %}
-         <div class="col-12">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
-            {% endif %}
-            {% endfor %}
-          </div>
-          {% endif %}
-        </div>
-      </form>
-
-      <!-- /.social-auth-links -->
-
+<body class="image">
+ <div class="box">
+  <!--  login-box-->
+    <div class="login-logo">
+      <a href=""><b>Attendance</b> System</a>
+        <p></p>
+        <p></p>
+        <p></p>
     </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Welcome to Attendance System !!!</p>
+
+        <form action="/doLogin" method="post">
+            {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" name="email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- /.col -->
+            <div class="col-12">
+              <button type="submit" class="btn btn-success btn-block">Log In</button>
+            </div><!-- /.col -->
+            <div class="col-12 text-center">
+              <p></p>
+              <a> Click on the button below if you forgot your password </a>
+              <p></p>
+            </div>
+            <div class="col-12 text-center">
+               <a class="btn btn-success btn-block" href="{% url 'password_reset' %}">Reset Password</a>
+            </div><!-- /.col -->
+          </div>
+          <div class="row">
+            {% if messages %}
+           <div class="col-12">
+              {% for message in messages %}
+              {% if message.tags == 'error' %}
+              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+ </div>
 <!-- /.login-box -->
 
 <!-- jQuery -->
