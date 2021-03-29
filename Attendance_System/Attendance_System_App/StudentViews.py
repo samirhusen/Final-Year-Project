@@ -33,8 +33,8 @@ def student_view_attendance_post(request):
     return render(request,"student_template/student_attendance_data.html",{"attendance_reports":attendance_reports})
 
 def student_apply_leave(request):
-    staff_obj = Students.objects.get(admin=request.user.id)
-    leave_data=LeaveReportStudents.objects.filter(student_id=staff_obj)
+    teacher_obj = Students.objects.get(admin=request.user.id)
+    leave_data=LeaveReportStudents.objects.filter(student_id=teacher_obj)
     return render(request,"student_template/student_apply_leave.html",{"leave_data":leave_data})
 
 def student_apply_leave_save(request):
@@ -56,8 +56,8 @@ def student_apply_leave_save(request):
 
 
 def student_feedback(request):
-    staff_id=Students.objects.get(admin=request.user.id)
-    feedback_data=FeedBackStudents.objects.filter(student_id=staff_id)
+    teacher_id=Students.objects.get(admin=request.user.id)
+    feedback_data=FeedBackStudents.objects.filter(student_id=teacher_id)
     return render(request,"student_template/student_feedback.html",{"feedback_data":feedback_data})
 
 def student_feedback_save(request):

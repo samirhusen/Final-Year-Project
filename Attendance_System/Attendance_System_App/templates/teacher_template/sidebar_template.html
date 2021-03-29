@@ -41,12 +41,21 @@
               </p>
             </a>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             {% url 'teacher_update_attendance' as teacher_update_attendance %}
             <a href="{{ teacher_update_attendance }}" class="nav-link {% if request.path == teacher_update_attendance %} active {% endif %}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 View Update Attendance
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            {% url 'student_leave_view1' as student_leave_view1 %}
+            <a href="{{ student_leave_view1 }}" class="nav-link {% if request.path == student_leave_view1 %} active {% endif %}">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p>
+                Student Leave
               </p>
             </a>
           </li>

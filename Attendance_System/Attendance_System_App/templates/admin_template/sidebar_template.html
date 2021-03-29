@@ -129,51 +129,51 @@
           </li>
 <!--          Attendance Report-->
           <li class="nav-item">
-             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
+            {% url 'admin_view_attendance' as admin_view_attendance %}
+             <a href="{% url 'admin_view_attendance' %}" class="nav-link {% if request.path == admin_view_attendance %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 View Attendance
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
 <!--          Student Feedbacks-->
           <li class="nav-item">
-             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
+             {% url 'student_feedback_message' as student_feedback_message %}
+            <a href="{% url 'student_feedback_message' %}" class="nav-link {% if request.path == student_feedback_message %} active {% endif %}">
+              <i class="nav-icon far fa-circle text-danger"></i>
               <p>
-                Student Feedbacks
-                <span class="right badge badge-danger">New</span>
+                Student Feedback
               </p>
             </a>
           </li>
 <!--          Teacher Feedback-->
           <li class="nav-item">
-             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
+               {% url 'teacher_feedback_message' as teacher_feedback_message %}
+            <a href="{% url 'teacher_feedback_message' %}" class="nav-link {% if request.path == teacher_feedback_message %} active {% endif %}">
+              <i class="nav-icon far fa-circle text-danger"></i>
               <p>
-                Teacher Feedbacks
-                <span class="right badge badge-danger">New</span>
+                Teacher Feedback
               </p>
             </a>
           </li>
 <!--          Student Leave-->
           <li class="nav-item">
-             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
+               {% url 'student_leave_view' as student_leave_view %}
+            <a href="{% url 'student_leave_view' %}" class="nav-link {% if request.path == student_leave_view %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Student Leave
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
 <!--          Teacher Leave-->
           <li class="nav-item">
-             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
+                 {% url 'teacher_leave_view' as teacher_leave_view %}
+            <a href="{% url 'teacher_leave_view' %}" class="nav-link {% if request.path == teacher_leave_view %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Teacher Leave
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>

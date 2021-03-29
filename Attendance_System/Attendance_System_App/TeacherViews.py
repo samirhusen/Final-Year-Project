@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from Attendance_System_App.models import Teachers, LeaveReportTeachers, FeedBackTeachers, Students, Attendance, AttendanceReport, Subjects, SessionYearModel
+from Attendance_System_App.models import Teachers, LeaveReportTeachers, LeaveReportStudents, FeedBackTeachers, Students, Attendance, AttendanceReport, Subjects, SessionYearModel
 
 
 def teacher_home(request):
@@ -169,3 +169,23 @@ def teacher_feedback_save(request):
         except:
             messages.error(request, "Failed To Send Feedback")
             return HttpResponseRedirect(reverse("teacher_feedback"))
+
+# leave
+def student_leave_view1(request):
+    leaves=LeaveReportStudents.objects.all()
+    return render(request,"teacher_template/student_leave_view.html",{"leaves":leaves})
+
+def student_approve_leave(request,leave_id):
+    leave=LeaveReportStudents.objects.get(id=leave_id)
+    leave.leave_status=1
+    leave.save()
+    return HttpResponseRedirect(reverse("student_leave_view1"))
+
+def student_disapprove_leave(request,leave_id):
+    leave=LeaveReportStudents.objects.get(id=leave_id)
+    leave.leave_status=2
+    leave.save()
+    return HttpResponseRedirect(reverse("student_leave_view1"))
+
+
+
