@@ -1,7 +1,10 @@
 import datetime
 
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from Attendance_System_App.models import Students, Subjects, Attendance, AttendanceReport, CustomUser
+from django.urls import reverse
+from Attendance_System_App.models import Students, Subjects, Attendance, AttendanceReport, CustomUser, LeaveReportStudents, FeedBackStudents
 
 
 
@@ -28,3 +31,99 @@ def student_view_attendance_post(request):
     attendance=Attendance.objects.filter(attendance_date__range=(start_data_parse,end_data_parse),subject_id=subject_obj)
     attendance_reports=AttendanceReport.objects.filter(attendance_id__in=attendance,student_id=stud_obj)
     return render(request,"student_template/student_attendance_data.html",{"attendance_reports":attendance_reports})
+
+def student_apply_leave(request):
+    staff_obj = Students.objects.get(admin=request.user.id)
+    leave_data=LeaveReportStudents.objects.filter(student_id=staff_obj)
+    return render(request,"student_template/student_apply_leave.html",{"leave_data":leave_data})
+
+def student_apply_leave_save(request):
+    if request.method!="POST":
+        return HttpResponseRedirect(reverse("student_apply_leave"))
+    else:
+        leave_date=request.POST.get("leave_date")
+        leave_msg=request.POST.get("leave_msg")
+
+        student_obj=Students.objects.get(admin=request.user.id)
+        try:
+            leave_report=LeaveReportStudents(student_id=student_obj,leave_date=leave_date,leave_message=leave_msg,leave_status=0)
+            leave_report.save()
+            messages.success(request, "Successfully Applied for Leave")
+            return HttpResponseRedirect(reverse("student_apply_leave"))
+        except:
+            messages.error(request, "Failed To Apply for Leave")
+            return HttpResponseRedirect(reverse("student_apply_leave"))
+
+
+def student_feedback(request):
+    staff_id=Students.objects.get(admin=request.user.id)
+    feedback_data=FeedBackStudents.objects.filter(student_id=staff_id)
+    return render(request,"student_template/student_feedback.html",{"feedback_data":feedback_data})
+
+def student_feedback_save(request):
+    if request.method!="POST":
+        return HttpResponseRedirect(reverse("student_feedback"))
+    else:
+        feedback_msg=request.POST.get("feedback_msg")
+
+        student_obj=Students.objects.get(admin=request.user.id)
+        try:
+            feedback=FeedBackStudents(student_id=student_obj,feedback=feedback_msg,feedback_reply="")
+            feedback.save()
+            messages.success(request, "Successfully Sent Feedback")
+            return HttpResponseRedirect(reverse("student_feedback"))
+        except:
+            messages.error(request, "Failed To Send Feedback")
+            return HttpResponseRedirect(reverse("student_feedback"))
+
+
+# def student_profile(request):
+#     user=CustomUser.objects.get(id=request.user.id)
+#     student=Students.objects.get(admin=user)
+#     return render(request,"student_template/student_profile.html",{"user":user,"student":student})
+#
+# def student_profile_save(request):
+#     if request.method!="POST":
+#         return HttpResponseRedirect(reverse("student_profile"))
+#     else:
+#         first_name=request.POST.get("first_name")
+#         last_name=request.POST.get("last_name")
+#         password=request.POST.get("password")
+#         address=request.POST.get("address")
+#         try:
+#             customuser=CustomUser.objects.get(id=request.user.id)
+#             customuser.first_name=first_name
+#             customuser.last_name=last_name
+#             if password!=None and password!="":
+#                 customuser.set_password(password)
+#             customuser.save()
+#
+#             student=Students.objects.get(admin=customuser)
+#             student.address=address
+#             student.save()
+#             messages.success(request, "Successfully Updated Profile")
+#             return HttpResponseRedirect(reverse("student_profile"))
+#         except:
+#             messages.error(request, "Failed to Update Profile")
+#             return HttpResponseRedirect(reverse("student_profile"))
+#
+# @csrf_exempt
+# def student_fcmtoken_save(request):
+#     token=request.POST.get("token")
+#     try:
+#         student=Students.objects.get(admin=request.user.id)
+#         student.fcm_token=token
+#         student.save()
+#         return HttpResponse("True")
+#     except:
+#         return HttpResponse("False")
+#
+# def student_all_notification(request):
+#     student=Students.objects.get(admin=request.user.id)
+#     notifications=NotificationStudent.objects.filter(student_id=student.id)
+#     return render(request,"student_template/all_notification.html",{"notifications":notifications})
+#
+# def student_view_result(request):
+#     student=Students.objects.get(admin=request.user.id)
+#     studentresult=StudentResult.objects.filter(student_id=student.id)
+#     return render(request,"student_template/student_result.html",{"studentresult":studentresult})

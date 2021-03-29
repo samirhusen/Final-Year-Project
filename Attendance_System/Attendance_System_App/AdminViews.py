@@ -8,6 +8,7 @@ from Attendance_System_App.forms import AddStudentForm, EditStudentForm
 from Attendance_System_App.models import CustomUser, Courses, Subjects, Teachers, Students, StudentServiceStaffs
 
 from Attendance_System_App.models import SessionYearModel
+from django.views.decorators.csrf import csrf_exempt
 
 
 def admin_home(request):
@@ -405,24 +406,24 @@ def add_session_save(request):
             return HttpResponseRedirect(reverse("manage_session"))
 
 
-# @csrf_exempt
-# def check_email_exist(request):
-#     email=request.POST.get("email")
-#     user_obj=CustomUser.objects.filter(email=email).exists()
-#     if user_obj:
-#         return HttpResponse(True)
-#     else:
-#         return HttpResponse(False)
-#
-# @csrf_exempt
-# def check_username_exist(request):
-#     username=request.POST.get("username")
-#     user_obj=CustomUser.objects.filter(username=username).exists()
-#     if user_obj:
-#         return HttpResponse(True)
-#     else:
-#         return HttpResponse(False)
-#
+@csrf_exempt
+def check_email_exist(request):
+    email=request.POST.get("email")
+    user_obj=CustomUser.objects.filter(email=email).exists()
+    if user_obj:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
+@csrf_exempt
+def check_username_exist(request):
+    username=request.POST.get("username")
+    user_obj=CustomUser.objects.filter(username=username).exists()
+    if user_obj:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
 # def staff_feedback_message(request):
 #     feedbacks=FeedBackStaffs.objects.all()
 #     return render(request,"hod_template/staff_feedback_template.html",{"feedbacks":feedbacks})
