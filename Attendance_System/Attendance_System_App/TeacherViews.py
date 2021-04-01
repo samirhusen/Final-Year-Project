@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from Attendance_System_App.models import Teachers, LeaveReportTeachers, LeaveReportStudents, FeedBackTeachers, Students, Attendance, AttendanceReport, Subjects, SessionYearModel
+from Attendance_System_App.models import Teachers, LeaveReportTeachers, LeaveReportStudents, FeedBackTeachers, Students, Attendance, AttendanceReport, Subjects, SessionYearModel, CustomUser
+
 
 
 def teacher_home(request):
@@ -187,5 +188,34 @@ def student_disapprove_leave(request,leave_id):
     leave.save()
     return HttpResponseRedirect(reverse("student_leave_view1"))
 
+def teacher_profile(request):
+    user=CustomUser.objects.get(id=request.user.id)
+    teacher=Teachers.objects.get(admin=user)
+    return render(request,"teacher_template/teacher_profile.html",{"user":user,"teacher":teacher})
+
+def teacher_profile_save(request):
+    if request.method!="POST":
+        return HttpResponseRedirect(reverse("teacher_profile"))
+    else:
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
+        address=request.POST.get("address")
+        password=request.POST.get("password")
+        try:
+            customuser=CustomUser.objects.get(id=request.user.id)
+            customuser.first_name=first_name
+            customuser.last_name=last_name
+            if password!=None and password!="":
+                customuser.set_password(password)
+            customuser.save()
+
+            teacher=Teachers.objects.get(admin=customuser.id)
+            teacher.address=address
+            teacher.save()
+            messages.success(request, "Successfully Updated Profile")
+            return HttpResponseRedirect(reverse("teacher_profile"))
+        except:
+            messages.error(request, "Failed to Update Profile")
+            return HttpResponseRedirect(reverse("teacher_profile"))
 
 
