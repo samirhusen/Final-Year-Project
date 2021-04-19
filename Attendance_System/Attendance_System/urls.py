@@ -19,6 +19,9 @@ from django.urls import path, include
 from Attendance_System import settings
 from Attendance_System_App import views, AdminViews, TeacherViews, StudentViews, StudentServiceStaffViews
 
+from Attendance_System_App.EditResultView import EditResultViewClass
+
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
@@ -72,6 +75,7 @@ urlpatterns = [
     path('admin_get_attendance_student', AdminViews.admin_get_attendance_student, name="admin_get_attendance_student"),
     path('admin_profile', AdminViews.admin_profile, name="admin_profile"),
     path('admin_profile_save', AdminViews.admin_profile_save, name="admin_profile_save"),
+
     # path('admin_send_notification_staff', HodViews.admin_send_notification_staff, name="admin_send_notification_staff"),
     # path('admin_send_notification_student', HodViews.admin_send_notification_student, name="admin_send_notification_student"),
     # path('send_student_notification', HodViews.send_student_notification, name="send_student_notification"),
@@ -86,10 +90,8 @@ urlpatterns = [
     path('teacher_apply_leave_save', TeacherViews.teacher_apply_leave_save,name="teacher_apply_leave_save"),
     path('teacher_feedback', TeacherViews.teacher_feedback, name="teacher_feedback"),
     path('teacher_feedback_save', TeacherViews.teacher_feedback_save, name="teacher_feedback_save"),
-
     path('teacher_profile', TeacherViews.teacher_profile, name="teacher_profile"),
     path('teacher_profile_save', TeacherViews.teacher_profile_save, name="teacher_profile_save"),
-
     path('get_students', TeacherViews.get_students, name="get_students"),
     path('get_attendance_dates', TeacherViews.get_attendance_dates, name="get_attendance_dates"),
     path('get_attendance_student', TeacherViews.get_attendance_student, name="get_attendance_student"),
@@ -98,12 +100,11 @@ urlpatterns = [
     path('student_leave_view1', TeacherViews.student_leave_view1, name="student_leave_view1"),
     path('student_approve_leave/<str:leave_id>', TeacherViews.student_approve_leave, name="student_approve_leave"),
     path('student_disapprove_leave/<str:leave_id>', TeacherViews.student_disapprove_leave, name="student_disapprove_leave"),
-    # path('staff_fcmtoken_save', StaffViews.staff_fcmtoken_save, name="staff_fcmtoken_save"),
     # path('staff_all_notification', StaffViews.staff_all_notification, name="staff_all_notification"),
-    # path('staff_add_result', StaffViews.staff_add_result, name="staff_add_result"),
-    # path('save_student_result', StaffViews.save_student_result, name="save_student_result"),
-    # path('edit_student_result', EditResultViewClass.as_view(), name="edit_student_result"),
-    # path('fetch_result_student', StaffViews.fetch_result_student, name="fetch_result_student"),
+    path('teacher_add_result', TeacherViews.teacher_add_result, name="teacher_add_result"),
+    path('save_student_result', TeacherViews.save_student_result, name="save_student_result"),
+    path('edit_student_result', EditResultViewClass.as_view(), name="edit_student_result"),
+    path('fetch_result_student', TeacherViews.fetch_result_student, name="fetch_result_student"),
 
 
     # <<<<<<<< Student URL Path >>>>>>>>>>
@@ -114,12 +115,9 @@ urlpatterns = [
     path('student_apply_leave_save', StudentViews.student_apply_leave_save, name="student_apply_leave_save"),
     path('student_feedback', StudentViews.student_feedback, name="student_feedback"),
     path('student_feedback_save', StudentViews.student_feedback_save, name="student_feedback_save"),
-
     path('student_profile', StudentViews.student_profile, name="student_profile"),
     path('student_profile_save', StudentViews.student_profile_save, name="student_profile_save"),
 
-    # path('student_fcmtoken_save', StudentViews.student_fcmtoken_save, name="student_fcmtoken_save"),
-    # path('firebase-messaging-sw.js', views.showFirebaseJS, name="show_firebase_js"),
     # path('student_all_notification', StudentViews.student_all_notification, name="student_all_notification"),
     # path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
     # path('node_modules/canvas-designer/widget.html', TeacherViews.returnHtmlWidget, name="returnHtmlWidget"),
@@ -128,7 +126,6 @@ urlpatterns = [
 
     # <<<<<<<<<<< Student Service Staff URL Path >>>>>>>>>>>
     path('studentservicestaff_home', StudentServiceStaffViews.studentservicestaff_home, name="studentservicestaff_home"),
-
     path('studentservicestaff_profile', StudentServiceStaffViews.studentservicestaff_profile, name="studentservicestaff_profile"),
     path('studentservicestaff_profile_save', StudentServiceStaffViews.studentservicestaff_profile_save, name="studentservicestaff_profile_save"),
 
