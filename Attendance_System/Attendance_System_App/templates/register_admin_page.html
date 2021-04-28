@@ -34,6 +34,7 @@
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Welcome to Attendance System !!!</p>
+
         <form action="/doLogin" method="post" id="demo-form">
             {% csrf_token %}
           <div class="input-group mb-3">
@@ -68,20 +69,6 @@
             <div class="col-12 text-center">
                <a class="btn btn-success btn-block" href="{% url 'password_reset' %}">Reset Password</a>
             </div><!-- /.col -->
-            <div class="col-12 text-center">
-            <p></p>
-            <a> If you are new here register through the links provided below </a>
-            <p></p>
-            </div>
-            <div class="col-12 text-center">
-               <a class="btn btn-success btn-xs" href="{% url 'register_teacher' %}">Register as Teacher</a>
-            </div><!-- /.col -->
-            <div class="col-12 text-center">
-               <a class="btn btn-success btn-xs" href="{% url 'register_studentservicestaff' %}">Register as Student Service Staff</a>
-            </div><!-- /.col -->
-            <div class="col-12 text-center">
-               <a class="btn btn-success btn-xs" href="{% url 'register_student' %}">Register as Student</a>
-            </div><!-- /.col -->
           </div>
           <div class="row">
             {% if messages %}
@@ -89,9 +76,6 @@
               {% for message in messages %}
               {% if message.tags == 'error' %}
               <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
-              {% endif %}
-              {% if message.tags == 'success' %}
-              <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
               {% endif %}
               {% endfor %}
             </div>

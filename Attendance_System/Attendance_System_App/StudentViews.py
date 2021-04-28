@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from Attendance_System_App.models import Students, Subjects, Attendance, AttendanceReport, CustomUser, LeaveReportStudents, FeedBackStudents
 
-from Attendance_System_App.models import Courses, SessionYearModel
+from Attendance_System_App.models import Courses, SessionYearModel, StudentResult
 
 
 def student_home(request):
@@ -151,8 +151,9 @@ def student_profile_save(request):
 #     student=Students.objects.get(admin=request.user.id)
 #     notifications=NotificationStudent.objects.filter(student_id=student.id)
 #     return render(request,"student_template/all_notification.html",{"notifications":notifications})
-#
-# def student_view_result(request):
-#     student=Students.objects.get(admin=request.user.id)
-#     studentresult=StudentResult.objects.filter(student_id=student.id)
-#     return render(request,"student_template/student_result.html",{"studentresult":studentresult})
+
+#student view thier own result
+def student_view_result(request):
+    student=Students.objects.get(admin=request.user.id)
+    studentresult=StudentResult.objects.filter(student_id=student.id)
+    return render(request,"student_template/student_result.html",{"studentresult":studentresult})

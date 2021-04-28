@@ -23,6 +23,14 @@ from Attendance_System_App.EditResultView import EditResultViewClass
 
 
 urlpatterns = [
+    # path('register_admin',views.register_admin,name="register_admin"),
+    path('register_student',views.register_student,name="register_student"),
+    path('register_teacher',views.register_teacher,name="register_teacher"),
+    path('register_studentservicestaff',views.register_studentservicestaff,name="register_studentservicestaff"),
+
+    path('do_register_student', views.do_register_student, name="do_register_student"),
+    path('do_register_teacher', views.do_register_teacher, name="do_register_teacher"),
+    path('do_register_studentservicestaff', views.do_register_studentservicestaff,name="do_register_studentservicestaff"),
 
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -85,6 +93,9 @@ urlpatterns = [
     #<<<<<<<<< Teacher URL Path >>>>>>>>>
     path('teacher_home', TeacherViews.teacher_home, name="teacher_home"),
     path('teacher_take_attendance', TeacherViews.teacher_take_attendance, name="teacher_take_attendance"),
+
+    path('teacher_take_attendance_face', TeacherViews.teacher_take_attendance_face, name="teacher_take_attendance_face"),
+
     path('teacher_update_attendance', TeacherViews.teacher_update_attendance, name="teacher_update_attendance"),
     path('teacher_apply_leave', TeacherViews.teacher_apply_leave, name="teacher_apply_leave"),
     path('teacher_apply_leave_save', TeacherViews.teacher_apply_leave_save,name="teacher_apply_leave_save"),
@@ -117,9 +128,8 @@ urlpatterns = [
     path('student_feedback_save', StudentViews.student_feedback_save, name="student_feedback_save"),
     path('student_profile', StudentViews.student_profile, name="student_profile"),
     path('student_profile_save', StudentViews.student_profile_save, name="student_profile_save"),
-
     # path('student_all_notification', StudentViews.student_all_notification, name="student_all_notification"),
-    # path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
+    path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
     # path('node_modules/canvas-designer/widget.html', TeacherViews.returnHtmlWidget, name="returnHtmlWidget"),
     # path('testurl/', views.Testurl),
 
@@ -128,5 +138,6 @@ urlpatterns = [
     path('studentservicestaff_home', StudentServiceStaffViews.studentservicestaff_home, name="studentservicestaff_home"),
     path('studentservicestaff_profile', StudentServiceStaffViews.studentservicestaff_profile, name="studentservicestaff_profile"),
     path('studentservicestaff_profile_save', StudentServiceStaffViews.studentservicestaff_profile_save, name="studentservicestaff_profile_save"),
+    path('testurl',views.Testurl),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
