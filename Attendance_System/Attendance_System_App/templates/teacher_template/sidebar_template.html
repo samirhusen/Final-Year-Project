@@ -33,12 +33,22 @@
               </p>
             </a>
           </li>
+          <!--          face recognition-->
+          <li class="nav-item">
+            {% url 'teacher_take_attendance_face' as teacher_take_attendance_face %}
+            <a href="{{ teacher_take_attendance_face }}" class="nav-link {% if request.path == teacher_take_attendance_face %} active {% endif %}">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Attendance via Face Recognition
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             {% url 'teacher_take_attendance' as teacher_take_attendance %}
             <a href="{{ teacher_take_attendance }}" class="nav-link {% if request.path == teacher_take_attendance %} active {% endif %}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Take Attendance
+                Take Attendance Manually
               </p>
             </a>
           </li>
@@ -96,15 +106,15 @@
               </p>
             </a>
           </li>
-           <li class="nav-item">
-            {% url 'teacher_all_notification' as teacher_all_notification %}
-            <a href="{{ teacher_all_notification }}" class="nav-link {% if request.path == teacher_all_notification %} active {% endif %}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Notifications
-              </p>
-            </a>
-          </li>
+<!--           <li class="nav-item">-->
+<!--            {% url 'teacher_all_notification' as teacher_all_notification %}-->
+<!--            <a href="{{ teacher_all_notification }}" class="nav-link {% if request.path == teacher_all_notification %} active {% endif %}">-->
+<!--              <i class="nav-icon fas fa-th"></i>-->
+<!--              <p>-->
+<!--                Notifications-->
+<!--              </p>-->
+<!--            </a>-->
+<!--          </li>-->
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

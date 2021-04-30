@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 from datetime import datetime
 from django.contrib import messages
 
@@ -10,6 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 from Attendance_System_App.models import Teachers, LeaveReportTeachers, LeaveReportStudents, FeedBackTeachers, Students, Attendance, AttendanceReport, Subjects, SessionYearModel, CustomUser
 
 from Attendance_System_App.models import Courses, StudentResult
+
+from subprocess import run,PIPE
+from django.core.files.storage import FileSystemStorage
 
 
 def teacher_home(request):
@@ -66,6 +71,12 @@ def teacher_take_attendance(request):
     subjects = Subjects.objects.filter(teacher_id=request.user.id)
     session_years = SessionYearModel.object.all()
     return render(request, "teacher_template/teacher_take_attendance.html",
+                  {"subjects": subjects, "session_years": session_years})
+
+def teacher_take_attendance_face(request):
+    subjects = Subjects.objects.filter(teacher_id=request.user.id)
+    session_years = SessionYearModel.object.all()
+    return render(request, "teacher_template/teacher_take_attendance_face.html",
                   {"subjects": subjects, "session_years": session_years})
 
 
@@ -316,3 +327,13 @@ def fetch_result_student(request):
     else:
         return HttpResponse("False")
 
+
+
+#func for running python script file from the extrnal system storage
+def external(request):
+
+    out = run([sys.executable,'C:/Users/dell/PycharmProjects/Final-Year-Project/Attendance_System/Attendance.py'],shell=False,stdout=PIPE)
+    print(out.stdout)
+    # return HttpResponseRedirect("external")
+
+    return render(request,'teacher_template/teacher_take_attendance_face.html')

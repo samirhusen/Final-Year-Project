@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
@@ -23,15 +24,12 @@ from Attendance_System_App.EditResultView import EditResultViewClass
 
 
 urlpatterns = [
-    # path('register_admin',views.register_admin,name="register_admin"),
     path('register_student',views.register_student,name="register_student"),
     path('register_teacher',views.register_teacher,name="register_teacher"),
     path('register_studentservicestaff',views.register_studentservicestaff,name="register_studentservicestaff"),
-
     path('do_register_student', views.do_register_student, name="do_register_student"),
     path('do_register_teacher', views.do_register_teacher, name="do_register_teacher"),
     path('do_register_studentservicestaff', views.do_register_studentservicestaff,name="do_register_studentservicestaff"),
-
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.ShowLoginPage, name="show_login"),
@@ -83,20 +81,19 @@ urlpatterns = [
     path('admin_get_attendance_student', AdminViews.admin_get_attendance_student, name="admin_get_attendance_student"),
     path('admin_profile', AdminViews.admin_profile, name="admin_profile"),
     path('admin_profile_save', AdminViews.admin_profile_save, name="admin_profile_save"),
-
     # path('admin_send_notification_staff', HodViews.admin_send_notification_staff, name="admin_send_notification_staff"),
     # path('admin_send_notification_student', HodViews.admin_send_notification_student, name="admin_send_notification_student"),
     # path('send_student_notification', HodViews.send_student_notification, name="send_student_notification"),
     # path('send_staff_notification', HodViews.send_staff_notification, name="send_staff_notification"),
 
-
     #<<<<<<<<< Teacher URL Path >>>>>>>>>
     path('teacher_home', TeacherViews.teacher_home, name="teacher_home"),
     path('teacher_take_attendance', TeacherViews.teacher_take_attendance, name="teacher_take_attendance"),
-
     path('teacher_take_attendance_face', TeacherViews.teacher_take_attendance_face, name="teacher_take_attendance_face"),
 
+    url(r'^external', TeacherViews.external,name="script"), #face recogntion url and func in Teachersview
     path('teacher_update_attendance', TeacherViews.teacher_update_attendance, name="teacher_update_attendance"),
+
     path('teacher_apply_leave', TeacherViews.teacher_apply_leave, name="teacher_apply_leave"),
     path('teacher_apply_leave_save', TeacherViews.teacher_apply_leave_save,name="teacher_apply_leave_save"),
     path('teacher_feedback', TeacherViews.teacher_feedback, name="teacher_feedback"),
@@ -117,7 +114,6 @@ urlpatterns = [
     path('edit_student_result', EditResultViewClass.as_view(), name="edit_student_result"),
     path('fetch_result_student', TeacherViews.fetch_result_student, name="fetch_result_student"),
 
-
     # <<<<<<<< Student URL Path >>>>>>>>>>
     path('student_home', StudentViews.student_home, name="student_home"),
     path('student_view_attendance', StudentViews.student_view_attendance, name="student_view_attendance"),
@@ -132,7 +128,6 @@ urlpatterns = [
     path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
     # path('node_modules/canvas-designer/widget.html', TeacherViews.returnHtmlWidget, name="returnHtmlWidget"),
     # path('testurl/', views.Testurl),
-
 
     # <<<<<<<<<<< Student Service Staff URL Path >>>>>>>>>>>
     path('studentservicestaff_home', StudentServiceStaffViews.studentservicestaff_home, name="studentservicestaff_home"),

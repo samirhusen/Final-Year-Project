@@ -1,0 +1,121 @@
+{% extends 'teacher_template/base_template.html' %}
+{% block page_title %}
+Attendance via Face Recognition System
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+                    <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Take Attendance of Students using Face Recognition System</h3>
+              </div>
+              <!-- /.card-header -->
+
+              <!-- form start -->
+                <div class="card-body">
+                    <div class="col-12 text-center">
+                    <p></p>
+                    <a> Click on the button below to open the camera which will detect and recognize student faces !!! </a>
+                    <p></p>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+              <div class="card-footer">
+                  <button class="btn btn-success btn-block" onclick="location.href='{% url 'script' %}'">Open Recognizer</button>
+              </div>
+              <div id="student_data" class="card-footer">
+
+              </div>
+            </div>
+            <!-- /.card -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Prase student attendance data</h3>
+              </div>
+
+            </div>
+          </div>
+          </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+<!--{% block custom_js %}-->
+<!--<script>-->
+<!--    $(document).ready(function(){-->
+<!--        $("#fetch_student").click(function(){-->
+<!--            var subject=$("#subject").val()-->
+<!--            var session_year=$("#session_year").val()-->
+
+<!--            $.ajax({-->
+<!--                url:'{% url 'get_students' %}',-->
+<!--                type:'POST',-->
+<!--                data:{subject:subject,session_year:session_year},-->
+<!--            })-->
+<!--            .done(function(response){-->
+<!--                var json_data=JSON.parse(response);-->
+<!--                console.log(json_data)-->
+<!--                var div_data="<div class='form-group'><label>Attendance Date : </label><input type='date' name='attendance_date' id='attendance_date' class='form-control'></div><div class='form-group'><div class='row'>";-->
+<!--                for(key in json_data)-->
+<!--                {-->
+<!--                    div_data+="<div class='col-lg-2'><div class='form-check'><input type='checkbox' checked='checked' name='student_data[]' value='"+json_data[key]['id']+"'><label class='form-check-label'>"+json_data[key]['name']+"</label></div></div>";-->
+<!--                }-->
+<!--                div_data+="</div></div>";-->
+<!--                div_data+="<div class='form-group'>";-->
+<!--                div_data+="<button id='save_attendance' class='btn btn-success btn-block' type='button'>Save Attendance Data</button>";-->
+<!--                div_data+="</div>";-->
+
+<!--                $("#student_data").html(div_data);-->
+
+<!--            })-->
+<!--            .fail(function(){-->
+<!--                alert("Error in Fetching Student")-->
+<!--            })-->
+
+
+<!--            $(document).on("click","#save_attendance",function(){-->
+
+<!--                $(this).attr("disabled","disabled")-->
+<!--                $(this).text("Saving Attendance Data...")-->
+<!--                var student_data=$("input[name='student_data[]']").map(function(){-->
+<!--                        if($(this).is(":checked")){-->
+<!--                            return {"id":$(this).val(),"status":1};-->
+<!--                        }-->
+<!--                        else{-->
+<!--                            return {"id":$(this).val(),"status":0};-->
+<!--                        }-->
+<!--                 }).get()-->
+<!--                var attendance_date=$("#attendance_date").val();-->
+<!--                var subject_id=$("#subject").val();-->
+<!--                var session_year_id=$("#session_year").val();-->
+<!--                console.log(student_data)-->
+<!--                student_data=JSON.stringify(student_data)-->
+
+<!--                $.ajax({-->
+<!--                        url:'{% url 'save_attendance_data' %}',-->
+<!--                        type:'POST',-->
+<!--                        data:{student_ids:student_data,attendance_date:attendance_date,subject_id:subject_id,session_year_id:session_year_id},-->
+<!--                    })-->
+<!--                    .done(function(response){-->
+
+<!--                        if(response=="OK"){-->
+<!--                            alert("Attendance Save")-->
+<!--                        }-->
+<!--                        else{-->
+<!--                            alert("Error in Saving Data")-->
+<!--                        }-->
+<!--                        location.reload()-->
+<!--                    })-->
+<!--                    .fail(function(){-->
+<!--                        alert("Error in Saving Student")-->
+<!--                    })-->
+<!--            })-->
+<!--        })-->
+<!--    })-->
+<!--</script>-->
+<!--{% endblock custom_js %}-->
