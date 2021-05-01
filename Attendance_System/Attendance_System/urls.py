@@ -81,19 +81,14 @@ urlpatterns = [
     path('admin_get_attendance_student', AdminViews.admin_get_attendance_student, name="admin_get_attendance_student"),
     path('admin_profile', AdminViews.admin_profile, name="admin_profile"),
     path('admin_profile_save', AdminViews.admin_profile_save, name="admin_profile_save"),
-    # path('admin_send_notification_staff', HodViews.admin_send_notification_staff, name="admin_send_notification_staff"),
-    # path('admin_send_notification_student', HodViews.admin_send_notification_student, name="admin_send_notification_student"),
-    # path('send_student_notification', HodViews.send_student_notification, name="send_student_notification"),
-    # path('send_staff_notification', HodViews.send_staff_notification, name="send_staff_notification"),
 
     #<<<<<<<<< Teacher URL Path >>>>>>>>>
     path('teacher_home', TeacherViews.teacher_home, name="teacher_home"),
     path('teacher_take_attendance', TeacherViews.teacher_take_attendance, name="teacher_take_attendance"),
     path('teacher_take_attendance_face', TeacherViews.teacher_take_attendance_face, name="teacher_take_attendance_face"),
-
     url(r'^external', TeacherViews.external,name="script"), #face recogntion url and func in Teachersview
+    url(r'^internal', TeacherViews.internal, name="button"),
     path('teacher_update_attendance', TeacherViews.teacher_update_attendance, name="teacher_update_attendance"),
-
     path('teacher_apply_leave', TeacherViews.teacher_apply_leave, name="teacher_apply_leave"),
     path('teacher_apply_leave_save', TeacherViews.teacher_apply_leave_save,name="teacher_apply_leave_save"),
     path('teacher_feedback', TeacherViews.teacher_feedback, name="teacher_feedback"),
@@ -108,7 +103,6 @@ urlpatterns = [
     path('student_leave_view1', TeacherViews.student_leave_view1, name="student_leave_view1"),
     path('student_approve_leave/<str:leave_id>', TeacherViews.student_approve_leave, name="student_approve_leave"),
     path('student_disapprove_leave/<str:leave_id>', TeacherViews.student_disapprove_leave, name="student_disapprove_leave"),
-    # path('staff_all_notification', StaffViews.staff_all_notification, name="staff_all_notification"),
     path('teacher_add_result', TeacherViews.teacher_add_result, name="teacher_add_result"),
     path('save_student_result', TeacherViews.save_student_result, name="save_student_result"),
     path('edit_student_result', EditResultViewClass.as_view(), name="edit_student_result"),
@@ -124,15 +118,16 @@ urlpatterns = [
     path('student_feedback_save', StudentViews.student_feedback_save, name="student_feedback_save"),
     path('student_profile', StudentViews.student_profile, name="student_profile"),
     path('student_profile_save', StudentViews.student_profile_save, name="student_profile_save"),
-    # path('student_all_notification', StudentViews.student_all_notification, name="student_all_notification"),
     path('student_view_result', StudentViews.student_view_result, name="student_view_result"),
-    # path('node_modules/canvas-designer/widget.html', TeacherViews.returnHtmlWidget, name="returnHtmlWidget"),
-    # path('testurl/', views.Testurl),
 
     # <<<<<<<<<<< Student Service Staff URL Path >>>>>>>>>>>
     path('studentservicestaff_home', StudentServiceStaffViews.studentservicestaff_home, name="studentservicestaff_home"),
     path('studentservicestaff_profile', StudentServiceStaffViews.studentservicestaff_profile, name="studentservicestaff_profile"),
     path('studentservicestaff_profile_save', StudentServiceStaffViews.studentservicestaff_profile_save, name="studentservicestaff_profile_save"),
+    path('student_feedback_message_sss', StudentServiceStaffViews.student_feedback_message_sss, name="student_feedback_message_sss"),
+    path('sss_view_attendance', StudentServiceStaffViews.sss_view_attendance, name="sss_view_attendance"),
+    path('sss_get_attendance_dates', StudentServiceStaffViews.sss_get_attendance_dates, name="sss_get_attendance_dates"),
+    path('sss_get_attendance_student', StudentServiceStaffViews.sss_get_attendance_student, name="sss_get_attendance_student"),
     path('testurl',views.Testurl),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

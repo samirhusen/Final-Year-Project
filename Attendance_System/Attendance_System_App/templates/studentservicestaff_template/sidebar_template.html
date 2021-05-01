@@ -32,6 +32,26 @@
               </p>
             </a>
           </li>
+          <!--          Student Feedbacks-->
+          <li class="nav-item">
+             {% url 'student_feedback_message_sss' as student_feedback_message_sss %}
+            <a href="{% url 'student_feedback_message_sss' %}" class="nav-link {% if request.path == student_feedback_message_sss %} active {% endif %}">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p>
+                Student Feedback
+              </p>
+            </a>
+          </li>
+          <!--          Attendance Report-->
+          <li class="nav-item">
+            {% url 'sss_view_attendance' as sss_view_attendance %}
+             <a href="{% url 'sss_view_attendance' %}" class="nav-link {% if request.path == sss_view_attendance %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                View Attendance
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
