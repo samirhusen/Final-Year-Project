@@ -9,12 +9,15 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from Attendance_System_App.models import Teachers, LeaveReportTeachers, LeaveReportStudents, FeedBackTeachers, Students, Attendance, AttendanceReport, Subjects, SessionYearModel, CustomUser
+from Attendance_System_App.models import Teachers, LeaveReportTeachers, LeaveReportStudents, FeedBackTeachers, Students, \
+    Attendance, AttendanceReport, Subjects, SessionYearModel, CustomUser
 
 from Attendance_System_App.models import Courses, StudentResult
 
-from subprocess import run,PIPE
-from django.core.files.storage import FileSystemStorage
+from subprocess import run, PIPE
+
+import pandas as pd
+from tabulate import tabulate
 
 
 def teacher_home(request):
@@ -72,6 +75,7 @@ def teacher_take_attendance(request):
     session_years = SessionYearModel.object.all()
     return render(request, "teacher_template/teacher_take_attendance.html",
                   {"subjects": subjects, "session_years": session_years})
+
 
 def teacher_take_attendance_face(request):
     subjects = Subjects.objects.filter(teacher_id=request.user.id)
@@ -180,9 +184,6 @@ def save_update_attendance_data(request):
         return HttpResponse("ERR")
 
 
-
-
-
 def teacher_apply_leave(request):
     teacher_obj = Teachers.objects.get(admin=request.user.id)
     leave_data = LeaveReportTeachers.objects.filter(teacher_id=teacher_obj)
@@ -230,46 +231,51 @@ def teacher_feedback_save(request):
             messages.error(request, "Failed To Send Feedback")
             return HttpResponseRedirect(reverse("teacher_feedback"))
 
+
 # leave
 def student_leave_view1(request):
-    leaves=LeaveReportStudents.objects.all()
-    return render(request,"teacher_template/student_leave_view.html",{"leaves":leaves})
+    leaves = LeaveReportStudents.objects.all()
+    return render(request, "teacher_template/student_leave_view.html", {"leaves": leaves})
 
-def student_approve_leave(request,leave_id):
-    leave=LeaveReportStudents.objects.get(id=leave_id)
-    leave.leave_status=1
+
+def student_approve_leave(request, leave_id):
+    leave = LeaveReportStudents.objects.get(id=leave_id)
+    leave.leave_status = 1
     leave.save()
     return HttpResponseRedirect(reverse("student_leave_view1"))
 
-def student_disapprove_leave(request,leave_id):
-    leave=LeaveReportStudents.objects.get(id=leave_id)
-    leave.leave_status=2
+
+def student_disapprove_leave(request, leave_id):
+    leave = LeaveReportStudents.objects.get(id=leave_id)
+    leave.leave_status = 2
     leave.save()
     return HttpResponseRedirect(reverse("student_leave_view1"))
+
 
 def teacher_profile(request):
-    user=CustomUser.objects.get(id=request.user.id)
-    teacher=Teachers.objects.get(admin=user)
-    return render(request,"teacher_template/teacher_profile.html",{"user":user,"teacher":teacher})
+    user = CustomUser.objects.get(id=request.user.id)
+    teacher = Teachers.objects.get(admin=user)
+    return render(request, "teacher_template/teacher_profile.html", {"user": user, "teacher": teacher})
+
 
 def teacher_profile_save(request):
-    if request.method!="POST":
+    if request.method != "POST":
         return HttpResponseRedirect(reverse("teacher_profile"))
     else:
-        first_name=request.POST.get("first_name")
-        last_name=request.POST.get("last_name")
-        address=request.POST.get("address")
-        password=request.POST.get("password")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        address = request.POST.get("address")
+        password = request.POST.get("password")
         try:
-            customuser=CustomUser.objects.get(id=request.user.id)
-            customuser.first_name=first_name
-            customuser.last_name=last_name
-            if password!=None and password!="":
+            customuser = CustomUser.objects.get(id=request.user.id)
+            customuser.first_name = first_name
+            customuser.last_name = last_name
+            if password != None and password != "":
                 customuser.set_password(password)
             customuser.save()
 
-            teacher=Teachers.objects.get(admin=customuser.id)
-            teacher.address=address
+            teacher = Teachers.objects.get(admin=customuser.id)
+            teacher.address = address
             teacher.save()
             messages.success(request, "Successfully Updated Profile")
             return HttpResponseRedirect(reverse("teacher_profile"))
@@ -278,35 +284,36 @@ def teacher_profile_save(request):
             return HttpResponseRedirect(reverse("teacher_profile"))
 
 
-
 def teacher_add_result(request):
-    subjects=Subjects.objects.filter(teacher_id=request.user.id)
-    session_years=SessionYearModel.object.all()
-    return render(request,"teacher_template/teacher_add_result.html",{"subjects":subjects,"session_years":session_years})
+    subjects = Subjects.objects.filter(teacher_id=request.user.id)
+    session_years = SessionYearModel.object.all()
+    return render(request, "teacher_template/teacher_add_result.html",
+                  {"subjects": subjects, "session_years": session_years})
+
 
 def save_student_result(request):
-    if request.method!='POST':
+    if request.method != 'POST':
         return HttpResponseRedirect('teacher_add_result')
-    student_admin_id=request.POST.get('student_list')
-    assignment_marks=request.POST.get('assignment_marks')
-    exam_marks=request.POST.get('exam_marks')
-    subject_id=request.POST.get('subject')
+    student_admin_id = request.POST.get('student_list')
+    assignment_marks = request.POST.get('assignment_marks')
+    exam_marks = request.POST.get('exam_marks')
+    subject_id = request.POST.get('subject')
 
-
-    student_obj=Students.objects.get(admin=student_admin_id)
-    subject_obj=Subjects.objects.get(id=subject_id)
+    student_obj = Students.objects.get(admin=student_admin_id)
+    subject_obj = Subjects.objects.get(id=subject_id)
 
     try:
-        check_exist=StudentResult.objects.filter(subject_id=subject_obj,student_id=student_obj).exists()
+        check_exist = StudentResult.objects.filter(subject_id=subject_obj, student_id=student_obj).exists()
         if check_exist:
-            result=StudentResult.objects.get(subject_id=subject_obj,student_id=student_obj)
-            result.subject_assignment_marks=assignment_marks
-            result.subject_exam_marks=exam_marks
+            result = StudentResult.objects.get(subject_id=subject_obj, student_id=student_obj)
+            result.subject_assignment_marks = assignment_marks
+            result.subject_exam_marks = exam_marks
             result.save()
             messages.success(request, "Successfully Updated Result")
             return HttpResponseRedirect(reverse("teacher_add_result"))
         else:
-            result=StudentResult(student_id=student_obj,subject_id=subject_obj,subject_exam_marks=exam_marks,subject_assignment_marks=assignment_marks)
+            result = StudentResult(student_id=student_obj, subject_id=subject_obj, subject_exam_marks=exam_marks,
+                                   subject_assignment_marks=assignment_marks)
             result.save()
             messages.success(request, "Successfully Added Result")
             return HttpResponseRedirect(reverse("teacher_add_result"))
@@ -314,26 +321,47 @@ def save_student_result(request):
         messages.error(request, "Failed to Add Result")
         return HttpResponseRedirect(reverse("teacher_add_result"))
 
+
 @csrf_exempt
 def fetch_result_student(request):
-    subject_id=request.POST.get('subject_id')
-    student_id=request.POST.get('student_id')
-    student_obj=Students.objects.get(admin=student_id)
-    result=StudentResult.objects.filter(student_id=student_obj.id,subject_id=subject_id).exists()
+    subject_id = request.POST.get('subject_id')
+    student_id = request.POST.get('student_id')
+    student_obj = Students.objects.get(admin=student_id)
+    result = StudentResult.objects.filter(student_id=student_obj.id, subject_id=subject_id).exists()
     if result:
-        result=StudentResult.objects.get(student_id=student_obj.id,subject_id=subject_id)
-        result_data={"exam_marks":result.subject_exam_marks,"assign_marks":result.subject_assignment_marks}
+        result = StudentResult.objects.get(student_id=student_obj.id, subject_id=subject_id)
+        result_data = {"exam_marks": result.subject_exam_marks, "assign_marks": result.subject_assignment_marks}
         return HttpResponse(json.dumps(result_data))
     else:
         return HttpResponse("False")
 
 
-
-#func for running python script file from the extrnal system storage
+# func for running python script file from the external system storage
 def external(request):
-
-    out = run([sys.executable,'C:/Users/dell/PycharmProjects/Final-Year-Project/Attendance_System/Attendance.py'],shell=False,stdout=PIPE)
+    out = run([sys.executable, 'C:/Users/dell/PycharmProjects/Final-Year-Project/Attendance_System/Attendance.py'],
+              shell=False, stdout=PIPE)
     print(out.stdout)
     # return HttpResponseRedirect("external")
+    return render(request, 'teacher_template/teacher_take_attendance_face.html')
 
-    return render(request,'teacher_template/teacher_take_attendance_face.html')
+
+#Using Pandas dataframe
+def internal(request):
+
+    # Read the csv file in
+    df = pd.read_csv('C:/Users/dell/PycharmProjects/Final-Year-Project/Attendance_System'
+                     '/Attendance_System_App/templates/teacher_template/Attendance.csv')
+
+    # Save to file
+    df.to_html('Attendance_System_App/templates/teacher_template/Attendance.html')
+
+    # Assign to string
+    #html_file = (df.to_html(classes='table table-striped'))
+
+    return render(request, 'teacher_template/teacher_take_attendance_face.html')
+
+def readcsv(request):
+
+    return render(request, 'teacher_template/Attendance.html')
+
+    #return render('C:/Users/dell/PycharmProjects/Final-Year-Project/Attendance_System/Attendance.csv')

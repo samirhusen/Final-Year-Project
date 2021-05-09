@@ -31,16 +31,20 @@ cap = cv2.VideoCapture(0)
 
 
 def markAttendance(name):
-    with open('Attendance.csv', 'r+') as f:
+    with open('Attendance_System_App/templates/teacher_template/Attendance.csv', 'r+') as f:
         myDataList = f.readlines()
         nameList = []
+        Text = 'PRESENT'
+        Text0 = 'RECOGNIZED'
         for line in myDataList:
             entry = line.split(',')
             nameList.append(entry[0])
         if name not in nameList:
             now = datetime.now()
-            dtString = now.strftime('%H:%M:%S')
-            f.writelines(f'\n{name},{dtString}')
+            dtString = now.strftime('%d-%m-%Y')
+            dtString1 = now.strftime('%H:%M:%S')
+            print(Text)
+            f.writelines(f'\n{name},{dtString},{dtString1},{Text},{Text0}')
 
 
 while True:

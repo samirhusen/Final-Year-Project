@@ -88,6 +88,9 @@ urlpatterns = [
     path('teacher_take_attendance_face', TeacherViews.teacher_take_attendance_face, name="teacher_take_attendance_face"),
     url(r'^external', TeacherViews.external,name="script"), #face recogntion url and func in Teachersview
     url(r'^internal', TeacherViews.internal, name="button"),
+
+    path('readcsv', TeacherViews.readcsv, name="readcsv"),
+
     path('teacher_update_attendance', TeacherViews.teacher_update_attendance, name="teacher_update_attendance"),
     path('teacher_apply_leave', TeacherViews.teacher_apply_leave, name="teacher_apply_leave"),
     path('teacher_apply_leave_save', TeacherViews.teacher_apply_leave_save,name="teacher_apply_leave_save"),

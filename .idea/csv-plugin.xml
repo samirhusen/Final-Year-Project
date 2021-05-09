@@ -17,7 +17,49 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Attendance_System\Attendance_System_App\templates\registration\password_reset_form.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Attendance_System\Attendance_System_App\templates\student_template\student_result.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Attendance_System\Attendance_System_App\templates\teacher_template\View_face_attendance.html">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Attendance_System\Attendance_System_App\templates\teacher_template\face_attendance_data_view.html">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\Attendance_System\Attendance_System_App\templates\teacher_template\teacher_take_attendance_face.html">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Attendance_System\media\myTable.html">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Attendance_System\myTable.html">
           <value>
             <Attribute>
               <option name="separator" value=":" />
