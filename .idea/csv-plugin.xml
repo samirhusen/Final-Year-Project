@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\Attendance_System\Attendance.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\Attendance_System\Attendance_System_App\TeacherViews.py">
           <value>
             <Attribute>
@@ -25,6 +32,13 @@
           </value>
         </entry>
         <entry key="\Attendance_System\Attendance_System_App\templates\student_template\student_result.html">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Attendance_System\Attendance_System_App\templates\teacher_template\Attendance.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

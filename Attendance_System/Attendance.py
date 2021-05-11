@@ -16,20 +16,23 @@ for cl in myList:
 print(studentNames)
 
 
+# converting the images into RGB and finding the encodings
 def findEncodings(images):
     encodeList = []
     for img in images:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        encode = face_recognition.face_encodings(img)[0]
-        encodeList.append(encode)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # covert to RGB
+        encode = face_recognition.face_encodings(img)[0]  # finding the encodings
+        encodeList.append(encode)  # append to our empty list
     return encodeList
 
 
 encodeListKnown = findEncodings(images)
+print('Encoding Completed')
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)  # initializing the web camera
 
 
+# marking the attendance in csv file
 def markAttendance(name):
     with open('Attendance_System_App/templates/teacher_template/Attendance.csv', 'r+') as f:
         myDataList = f.readlines()
@@ -50,24 +53,25 @@ def markAttendance(name):
 while True:
     success, img = cap.read()
 
-    # because its real time capture, we wld reduce the size of image to speed up the process
+    # because its real time capture, i will reduce the size of image to speed up the process
     imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
 
-    # realtime image size has been divided by 4 using 0.25
+    # realtime image size has been divided by 4 using 0.25 and converting into RGB
     imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
 
-    facesCurFrame = face_recognition.face_locations(imgS)
-    encodeCurFrame = face_recognition.face_encodings(imgS, facesCurFrame)
+    facesCurFrame = face_recognition.face_locations(imgS) # faces from the web cam
+    encodeCurFrame = face_recognition.face_encodings(imgS, facesCurFrame) # encode the faces found
 
-    # finding matches
+    # Now matching the encoding with the previous one
     for encodeFace, faceLoc in zip(encodeCurFrame, facesCurFrame):
         matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
         faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
-        # print(faceDis)
+        #print(faceDis)
 
-        matchIndex = np.argmin(faceDis)
+        matchIndex = np.argmin(faceDis) # matching the array from th previous
         # print('matchIndex', matchIndex)
 
+        # Printing the images name and creating a bounding box in the image
         if matches[matchIndex]:
             name = studentNames[matchIndex].upper()
             # print(name)
@@ -79,7 +83,7 @@ while True:
             markAttendance(name)
 
     cv2.imshow('Webcam', img)
-    # press'esc' to close program
+    # press 'esc' to close program
     if cv2.waitKey(1) == 27:
         break
 

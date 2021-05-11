@@ -28,9 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+#media path for storing images
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+#css and all loading static
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
