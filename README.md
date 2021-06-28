@@ -1,4 +1,4 @@
-# Attendance System using Face Recognition - Web Application
+# Attendance System using Face Recognition - Web Based Application
 
 This is a functional web-based application that helps the teachers and manage the classroom control by taking attendance of students within a few moments via live detecting and recognizing their frontal faces.
 
